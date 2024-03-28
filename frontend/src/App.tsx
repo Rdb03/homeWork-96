@@ -4,8 +4,11 @@ import { Container } from '@mui/material';
 import NoFound from './components/NoFound/NoFound.tsx';
 import Login from './features/users/Login.tsx';
 import Register from './features/users/Register.tsx';
+import Cocktails from './features/cocktails/Cocktails.tsx';
+import CocktailsUser from './features/cocktails/CocktailsUser.tsx';
 
 const App = () => {
+
   return (
     <>
       <header>
@@ -14,6 +17,8 @@ const App = () => {
       <main className="app-main">
         <Container maxWidth="xl" sx={{marginTop: '50px'}}>
           <Routes>
+            <Route path="/" element={<Cocktails/>}/>
+            <Route path={`/cocktails`} element={<CocktailsUser/>}/>
             <Route path="/register" element={<Register/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="*" element={<NoFound/>}/>

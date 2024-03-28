@@ -1,10 +1,19 @@
-import {Model} from "mongoose";
+import {Model, Schema} from "mongoose";
 
 export interface IUser {
     email: string;
     password: string;
     token: string;
     role: string;
+}
+
+export interface ICocktail extends Document{
+    name: string;
+    user: Schema.Types.ObjectId;
+    image: string;
+    recipe: string;
+    isPublished: boolean;
+    ingredients: string;
 }
 
 export interface UserFields {

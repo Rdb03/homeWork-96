@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { Button, Grid, Menu, MenuItem } from '@mui/material';
 import { apiURL } from '../../../constants.ts';
+import { Link } from 'react-router-dom';
 import noImage from '../../assets/images/image_not_available.png';
 import { IUser } from '../../../types';
 import { useAppDispatch } from '../../app/hooks.ts';
@@ -42,6 +42,9 @@ const UserMenu: React.FC<Props> = ({user}) => {
         </Button>
       </Grid>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
+        <MenuItem>
+          <Link to={`/cocktails?user=${user._id}`} style={{color: 'black', textDecoration: 'none'}}>My cocktails</Link>
+        </MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </>
