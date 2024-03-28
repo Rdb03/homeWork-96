@@ -29,13 +29,16 @@ const CocktailSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    ingredients: {
-        type: [{
-            nameIng: String,
-            qty: String,
-        }],
-        required: true,
-    },
+    ingredients: [{
+        nameIng: {
+            type: String,
+            required: true,
+        },
+        qty: {
+            type: String,
+            required: true,
+        },
+    }],
 });
 
 const Cocktail = model<ICocktail>('Cocktail', CocktailSchema);

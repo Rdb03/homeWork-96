@@ -24,15 +24,17 @@ cocktailRouter.get('/', async (req , res, next) => {
 
 cocktailRouter.post('/', auth, imagesUpload.single('image'), async (req, res, next) => {
     try {
-        const cocktailData = new Cocktail({
+        const cocktailData  = new Cocktail({
             user: req.body.user,
             name: req.body.name,
             recipe: req.body.recipe,
-            image: req.file ? 'images/' + req.file.filename : null,
+            image: req.file ? req.file.filename : null,
             ingredients: req.body.ingredients,
         });
 
-        await cocktailData.save();
+        const cocktail = new Cocktail(cocktailData);
+
+        await cocktail.save();
 
         return res.send(cocktailData);
     } catch (error) {

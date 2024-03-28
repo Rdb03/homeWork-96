@@ -45,6 +45,9 @@ const UserMenu: React.FC<Props> = ({user}) => {
         <MenuItem>
           <Link to={`/cocktails?user=${user._id}`} style={{color: 'black', textDecoration: 'none'}}>My cocktails</Link>
         </MenuItem>
+        <MenuItem>
+          <Link to={`/newCocktail`} style={{color: 'black', textDecoration: 'none'}}>Add New Cocktail</Link>
+        </MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </>
