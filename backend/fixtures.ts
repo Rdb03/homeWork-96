@@ -258,7 +258,7 @@ const run = async () => {
     }, {
         user: user2._id,
         name: 'Brandy sour',
-        image: 'images/Brandy-sour.jpg',
+        image: 'fixtures/brandy-sour.jpg',
         recipe: 'Tip the lemon juice, cherry syrup, bitters, egg white and brandy into a cocktail shaker with a large handful of ice. Shake until the outside of the shaker feels very cold. Double strain into a tumbler filled with ice. Thread the lemon slice and cherry onto a cocktail stick, rest across the rim of the tumbler and serve.',
         isPublished: false,
         ingredients: [

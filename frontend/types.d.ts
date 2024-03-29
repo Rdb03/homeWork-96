@@ -33,6 +33,10 @@ export interface CocktailMutation {
   user: string,
 }
 
+export interface OneCocktail {
+  result: ICocktails;
+}
+
 export interface RegisterMutation {
   email: string;
   password: string;

@@ -1,6 +1,7 @@
 import axiosApi from '../../../axiosApi.ts';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { CocktailMutation, ICocktail } from '../../../types';
+import { CocktailMutation, ICocktail, OneCocktail } from '../../../types';
+import axios from 'axios';
 
 export const fetchCocktails = createAsyncThunk<ICocktail[], string | undefined>(
   'cocktails/fetchCocktails',
@@ -44,5 +45,22 @@ export const createCocktail = createAsyncThunk(
     }
   },
 );
+
+export const fetchOneCocktail = createAsyncThunk<OneCocktail, string>(
+  'cocktails/fetchOneCocktail',
+  async (id) => {
+    const response = await axiosApi.get<OneCocktail>('/cocktails/' + id);
+    return response.data;
+  }
+);
+
+export const getUserInfo = createAsyncThunk(
+  'user/getUserInfo',
+  async (userId) => {
+    const response = await axios.post('/getUserInfo', { userId });
+    return response.data.result;
+  }
+);
+
 
 

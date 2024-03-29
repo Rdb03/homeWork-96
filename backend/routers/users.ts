@@ -1,3 +1,5 @@
+// @ts-ignore
+
 import express from "express";
 import User from "../models/User";
 import {Error} from "mongoose";
@@ -118,8 +120,5 @@ userRouter.post('/google', imagesUpload.single('image'), async (req, res, next) 
         return next(e);
     }
 });
-
-
-
 
 export default userRouter;

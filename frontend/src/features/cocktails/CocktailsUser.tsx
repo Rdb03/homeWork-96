@@ -28,11 +28,10 @@ const CocktailsUser = () => {
       <Typography sx={{margin: '0 auto'}} variant="h3">{user?.displayName} Cocktails</Typography>
       <Grid sx={{display: 'flex', marginTop: '30px'}}>
         {cocktailsUser.map((item) => (
-          //   (user?.role !== 'admin' ? item.isPublished : item) &&
-          //   <CocktailItem cocktail={item}/>
-          // )
-          <CocktailItem key={item._id} cocktail={item}/>
-        ))}
+            (user?.role !== 'admin' ? item.isPublished : item) &&
+            <CocktailItem cocktail={item} key={item._id}/>
+          )
+        )}
       </Grid>
     </Grid>
   );

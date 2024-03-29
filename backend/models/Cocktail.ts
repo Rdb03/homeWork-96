@@ -9,7 +9,7 @@ const CocktailSchema = new mongoose.Schema({
     },
     user: {
         type: Schema.Types.ObjectId,
-        red: 'User',
+        ref: 'User',
         required: true,
         validate: {
             validator: async (value: mongoose.Types.ObjectId) => {

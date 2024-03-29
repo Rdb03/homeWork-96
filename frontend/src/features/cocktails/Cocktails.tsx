@@ -4,31 +4,29 @@ import { useEffect } from 'react';
 import { fetchCocktails } from './CocktailThunk.ts';
 import { CircularProgress, Grid, Typography } from '@mui/material';
 import CocktailItem from './CocktailItem.tsx';
+import { selectUser } from '../users/usersSlice.ts';
 
 const Cocktails = () => {
   const dispatch = useAppDispatch();
   const cocktails = useAppSelector(selectCocktails);
   const loading = useAppSelector(selectCocktailsLoading);
+  const user = useAppSelector(selectUser);
 
   useEffect(() => {
     dispatch(fetchCocktails());
   }, [dispatch]);
-
-  console.log(cocktails);
-
 
   return loading ? (
     <CircularProgress />
   ) : (
     <Grid sx={{display: 'flex', flexDirection: 'column'}}>
       <Typography sx={{margin: '0 auto'}} variant="h3">All Cocktails</Typography>
-      <Grid sx={{display: 'flex'}}>
+      <Grid container sx={{display: 'flex', justifyContent: 'center'}}>
         {cocktails.map((item) => (
-          //   (user?.role !== 'admin' ? item.isPublished : item) &&
-          //   <CocktailItem cocktail={item}/>
-          // )
-          <CocktailItem key={item._id} cocktail={item}/>
-        ))}
+            (user?.role !== 'admin' ? item.isPublished : item) &&
+            <CocktailItem cocktail={item} key={item._id}/>
+          )
+        )}
       </Grid>
     </Grid>
   );

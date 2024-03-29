@@ -7,6 +7,7 @@ import Register from './features/users/Register.tsx';
 import Cocktails from './features/cocktails/Cocktails.tsx';
 import CocktailsUser from './features/cocktails/CocktailsUser.tsx';
 import CocktailForm from './features/cocktails/components/CocktailForm.tsx';
+import FullCocktailInfo from './features/cocktails/FullCocktailInfo.tsx';
 
 const App = () => {
 
@@ -24,6 +25,7 @@ const App = () => {
             <Route path="/register" element={<Register/>}/>
             <Route path="/login" element={<Login/>}/>
             <Route path="*" element={<NoFound/>}/>
+            <Route path="/cocktails/:id" element={<FullCocktailInfo />} />
           </Routes>
         </Container>
       </main>
