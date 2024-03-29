@@ -3,7 +3,7 @@ import { Button, Card, CardActionArea, CardMedia, Grid, styled, Typography } fro
 import { ICocktail } from '../../../types';
 import { apiURL } from '../../../constants.ts';
 import imageNotAvailable from '../../assets/images/image_not_available.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
 import { selectUser } from '../users/usersSlice.ts';
 import { selectDeleteLoading, selectPatchLoading } from './CocktailSlice.ts';
@@ -20,6 +20,7 @@ interface Props {
 
 const CocktailItem: React.FC<Props> = ({cocktail}) => {
   let cardImage = imageNotAvailable;
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const user = useAppSelector(selectUser);
   const deleteLoading = useAppSelector(selectDeleteLoading);
@@ -34,6 +35,7 @@ const CocktailItem: React.FC<Props> = ({cocktail}) => {
       const token = user.token;
       await dispatch(deleteCocktail({ id: cocktail._id, token }));
       await dispatch(fetchCocktails());
+      navigate('/');
     }
   };
 
@@ -55,8 +57,16 @@ const CocktailItem: React.FC<Props> = ({cocktail}) => {
       cursor: 'pointer',
     }}>
       <CardActionArea component={Link} to={'/cocktails/' + cocktail._id}>
-        <Typography sx={{fontWeight: 'bold'}} variant="h5">{cocktail.name}</Typography>
+        <Grid sx={{display: 'flex', alignItems: 'center'}}>
+          <Typography sx={{fontWeight: 'bold'}} variant="h5">{cocktail.name}</Typography>
+        </Grid>
         <ImageCardMedia image={cardImage} title={cocktail.name}/>
+        {!cocktail.isPublished && user && user._id === cocktail.user._id ?
+          <Typography sx={{fontSize: '11px', color: 'red', marginLeft: 'auto'}}>
+            Ваш коктейль находится на рассмотрении модератора
+          </Typography>
+          : null
+        }
       </CardActionArea>
       <Grid sx={{display: 'flex', alignItems: 'center', marginTop: '20px'}}>
         {user?.role === 'admin' ?

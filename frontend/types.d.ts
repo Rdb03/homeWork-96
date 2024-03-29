@@ -12,7 +12,7 @@ export interface IUser {
 export interface ICocktail {
   _id: string;
   name: string;
-  user: string;
+  user: IUser;
   image: string | null;
   recipe: string;
   isPublished: boolean;

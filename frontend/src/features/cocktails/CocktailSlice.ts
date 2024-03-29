@@ -65,7 +65,7 @@ export const cocktailsSlice = createSlice({
     });
 
     builder.addCase(deleteCocktail.pending, (state, action) => {
-      state.deleteLoading = action.meta.arg;
+      state.deleteLoading = !!action.meta.arg;
     });
     builder.addCase(deleteCocktail.fulfilled, (state) => {
       state.deleteLoading = false;
@@ -75,7 +75,7 @@ export const cocktailsSlice = createSlice({
     });
 
     builder.addCase(patchCocktail.pending, (state, action) => {
-      state.patchLoading = action.meta.arg;
+      state.patchLoading = !!action.meta.arg;
     });
     builder.addCase(patchCocktail.fulfilled, (state) => {
       state.patchLoading = false;
