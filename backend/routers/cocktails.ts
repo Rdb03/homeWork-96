@@ -73,6 +73,10 @@ cocktailRouter.patch(
 
             cocktail.isPublished = !cocktail.isPublished;
 
+            await Cocktail.findByIdAndUpdate(cocktail_id, {
+                isPublished: !cocktail.isPublished,
+            });
+
             await cocktail.save();
             return res.send(cocktail);
         } catch (error) {

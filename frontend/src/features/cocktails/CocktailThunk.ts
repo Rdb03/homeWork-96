@@ -1,7 +1,6 @@
 import axiosApi from '../../../axiosApi.ts';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { CocktailMutation, ICocktail, OneCocktail } from '../../../types';
-import axios from 'axios';
 
 export const fetchCocktails = createAsyncThunk<ICocktail[], string | undefined>(
   'cocktails/fetchCocktails',
@@ -54,13 +53,38 @@ export const fetchOneCocktail = createAsyncThunk<OneCocktail, string>(
   }
 );
 
-export const getUserInfo = createAsyncThunk(
-  'user/getUserInfo',
-  async (userId) => {
-    const response = await axios.post('/getUserInfo', { userId });
-    return response.data.result;
+export const deleteCocktail = createAsyncThunk<void, { id: string, token: string | undefined }>(
+  'cocktails/deleteCocktails',
+  async ({ id, token }) => {
+    try {
+      const response = await axiosApi.delete(`/cocktails/${id}`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+
+      return response.data;
+    } catch (error) {
+      console.error('Error deleting artist:', error);
+      throw error;
+    }
   }
 );
+export const patchCocktail = createAsyncThunk<void, { id: string, token: string}>(
+  'cocktails/patchCocktails',
+  async ({id, token}) => {
+    try {
+      const response = await axiosApi.patch(`/cocktails/${id}/togglePublished`,  {isPublished: true},{
+        headers: {
+          Authorization: token,
+        },
+      });
 
+      return response.data;
+    } catch (error) {
+      console.error('Error deleting artist:', error);
+      throw error;
+    }
+  });
 
 

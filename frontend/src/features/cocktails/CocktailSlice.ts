@@ -1,6 +1,6 @@
 import { ICocktail, OneCocktail } from '../../../types';
 import { createSlice } from '@reduxjs/toolkit';
-import { createCocktail, fetchCocktails, fetchOneCocktail } from './CocktailThunk.ts';
+import { createCocktail, deleteCocktail, fetchCocktails, fetchOneCocktail, patchCocktail } from './CocktailThunk.ts';
 import { RootState } from '../../app/store.ts';
 
 interface CocktailState {
@@ -9,6 +9,8 @@ interface CocktailState {
   fetchLoadingCocktails: boolean;
   createLoading: boolean;
   fetchOneLoading: boolean;
+  deleteLoading: boolean | string;
+  patchLoading: boolean | string;
 }
 
 const initialState: CocktailState = {
@@ -17,6 +19,8 @@ const initialState: CocktailState = {
   fetchLoadingCocktails: false,
   createLoading: false,
   fetchOneLoading: false,
+  deleteLoading: false,
+  patchLoading: false,
 };
 
 export const cocktailsSlice = createSlice({
@@ -59,6 +63,26 @@ export const cocktailsSlice = createSlice({
     builder.addCase(fetchOneCocktail.rejected, (state) => {
       state.fetchOneLoading = false;
     });
+
+    builder.addCase(deleteCocktail.pending, (state, action) => {
+      state.deleteLoading = action.meta.arg;
+    });
+    builder.addCase(deleteCocktail.fulfilled, (state) => {
+      state.deleteLoading = false;
+    });
+    builder.addCase(deleteCocktail.rejected, (state) => {
+      state.deleteLoading = true;
+    });
+
+    builder.addCase(patchCocktail.pending, (state, action) => {
+      state.patchLoading = action.meta.arg;
+    });
+    builder.addCase(patchCocktail.fulfilled, (state) => {
+      state.patchLoading = false;
+    });
+    builder.addCase(patchCocktail.rejected, (state) => {
+      state.patchLoading = true;
+    });
   },
 });
 
@@ -68,3 +92,5 @@ export const selectCocktail = (state: RootState) => state.cocktails.cocktail;
 export const selectOneCocktailLoading = (state: RootState) => state.cocktails.fetchOneLoading;
 export const selectCreateLoading = (state: RootState) => state.cocktails.createLoading;
 export const selectCocktailsLoading = (state: RootState) => state.cocktails.fetchLoadingCocktails;
+export const selectDeleteLoading = (state: RootState) => state.cocktails.deleteLoading;
+export const selectPatchLoading = (state: RootState) => state.cocktails.patchLoading;
